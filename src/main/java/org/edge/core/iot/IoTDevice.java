@@ -62,6 +62,11 @@ public abstract class IoTDevice extends SimEntity {
 	 * used to show how fast can this device process data
 	 */
 	private double processingAbility;
+
+	public int getComplexityOfDataPackage() {
+		return complexityOfDataPackage;
+	}
+
 	private int complexityOfDataPackage;
 
 	public double getRunningTime() {
@@ -127,6 +132,11 @@ public abstract class IoTDevice extends SimEntity {
 	 */
 	private long capacityToStore = 0;
 	private NetworkModel networkModel;
+
+	public EdgeLet getDataTemplate() {
+		return dataTemplate;
+	}
+
 	private EdgeLet dataTemplate;
 
 	public IoTDevice(IoTType type, String name, double data_frequency, double dataGenerationTime,

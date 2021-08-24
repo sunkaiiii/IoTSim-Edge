@@ -1,13 +1,17 @@
 package org.edge.core.edge;
 
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import org.cloudbus.cloudsim.Datacenter;
 import org.cloudbus.cloudsim.Host;
 import org.cloudbus.cloudsim.Storage;
 import org.cloudbus.cloudsim.Vm;
 import org.cloudbus.cloudsim.VmAllocationPolicy;
+import org.cloudbus.cloudsim.core.CloudSim;
 import org.cloudbus.cloudsim.core.SimEvent;
+import org.edge.core.feature.EdgeLet;
 import org.edge.core.feature.EdgeState;
 import org.edge.core.iot.IoTDevice;
 import org.edge.entity.ConnectionHeader;
@@ -84,6 +88,34 @@ public class EdgeDataCenter extends Datacenter {
 		}
 
 	}
+
+	private double calculateDelayByLocalComputing(SimEvent event,EdgeDevice device){
+		double queueExecutionDuration = device.getPendingResponse().stream().map(EdgeLet::getFinishTime).reduce(0.0, Double::sum);
+		ConnectionHeader info = (ConnectionHeader) event.getData();
+		IoTDevice ioTDevice = (IoTDevice) CloudSim.getEntity(info.ioTId);
+		double transmissionDelay = ioTDevice.getNetworkDelay();
+		double complexity = ioTDevice.getComplexityOfDataPackage();
+//		device.getc
+		return queueExecutionDuration+transmissionDelay + complexity/this.getEdgeCharacteristics().getCpuTime(complexity,0);
+	}
+
+	private double calculateDelayByCloudComputingOverNetwork(SimEvent event,EdgeDevice device){
+		return Integer.MAX_VALUE;
+	}
+
+	private double calculateDelayByV2RCommunications(SimEvent event, EdgeDevice device){
+		return Integer.MAX_VALUE;
+	}
+
+	private boolean delaySatisfyConstraint(double constrant, SimEvent event, EdgeDevice device){
+		return Stream.of(calculateDelayByLocalComputing(event,device),calculateDelayByCloudComputingOverNetwork(event,device),calculateDelayByV2RCommunications(event,device))
+				.anyMatch(delay->delay<constrant);
+	}
+
+	private List<EdgeDevice> getEdgeDevicesInConstraints(SimEvent event,List<EdgeDevice> devices){
+		return devices.stream().filter(device -> delaySatisfyConstraint(200,event,device)).collect(Collectors.toList());
+	}
+
 	/**
 	 * set up connection between edge devices in this data center and iot devices
 	 * @param ev its data contains connection information between edge device and iot device
@@ -106,6 +138,8 @@ public class EdgeDataCenter extends Datacenter {
 					if (clzz.equals(info.communicationProtocolForIoT)
 							/* || clzz.isAssignableFrom(device.getClass()) */) {
 						List<EdgeDevice> hostList = this.characteristics.getHostList();
+
+						List<EdgeDevice> availableDevice = getEdgeDevicesInConstraints(ev,hostList);
 
 						for (EdgeDevice edgeDevice : hostList) {
 							List<Vm> vmList = edgeDevice.getVmList();
