@@ -1,6 +1,8 @@
 package org.edge.core.iot;
 
+import java.util.ArrayDeque;
 import java.util.ArrayList;
+import java.util.Deque;
 import java.util.List;
 
 import org.cloudbus.cloudsim.core.CloudSim;
@@ -41,6 +43,7 @@ public abstract class IoTDevice extends SimEntity {
 	 */
 	private int brokerId;
 	private int assigmentIoTId;
+	private Deque<Integer> taskQueue;
 	public NetworkDelayCalculationPolicy getNetworkDelayCalculationPolicy() {
 		return this.networkDelayCalculationPolicy;
 	}
@@ -139,9 +142,13 @@ public abstract class IoTDevice extends SimEntity {
 
 	private EdgeLet dataTemplate;
 
+	public Deque<Integer> getTaskQueue() {
+		return taskQueue;
+	}
+
 	public IoTDevice(IoTType type, String name, double data_frequency, double dataGenerationTime,
-			int complexityOfDataPackage, int dataSize, NetworkModel networkModel, double max_battery_capacity,
-			double battery_drainage_rate, double processingAbility, EdgeLet dataTemplate) {
+					 int complexityOfDataPackage, int dataSize, NetworkModel networkModel, double max_battery_capacity,
+					 double battery_drainage_rate, double processingAbility, EdgeLet dataTemplate) {
 		super(name);
 		this.ioTType = type;
 		this.dataTemplate = dataTemplate;
@@ -161,6 +168,7 @@ public abstract class IoTDevice extends SimEntity {
 		this.dataPackagesUnderTransmission = new ArrayList<>();
 		this.enabled = true;
 		this.capacityToStore = 0;
+		this.taskQueue = new ArrayDeque<Integer>();
 
 	}
 

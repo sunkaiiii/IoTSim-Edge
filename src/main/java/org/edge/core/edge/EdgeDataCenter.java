@@ -89,12 +89,12 @@ public class EdgeDataCenter extends Datacenter {
 
 	}
 
-	private double calculateDelayByLocalComputing(SimEvent event,EdgeDevice device){
+	private double calculateDelayByV2RCommunications(SimEvent event, EdgeDevice device){
 		double queueExecutionDuration = device.getPendingResponse().stream().map(EdgeLet::getFinishTime).reduce(0.0, Double::sum);
 		ConnectionHeader info = (ConnectionHeader) event.getData();
 		IoTDevice ioTDevice = (IoTDevice) CloudSim.getEntity(info.ioTId);
-		double transmissionDelay = ioTDevice.getNetworkDelay();
 		double complexity = ioTDevice.getComplexityOfDataPackage();
+		double transmissionDelay = ioTDevice.getNetworkDelay();
 //		device.getc
 		return queueExecutionDuration+transmissionDelay + complexity/this.getEdgeCharacteristics().getCpuTime(complexity,0);
 	}
@@ -103,12 +103,16 @@ public class EdgeDataCenter extends Datacenter {
 		return Integer.MAX_VALUE;
 	}
 
-	private double calculateDelayByV2RCommunications(SimEvent event, EdgeDevice device){
-		return Integer.MAX_VALUE;
+	private double calculateDelayByLocalComputing(SimEvent event, EdgeDevice device){
+		ConnectionHeader info = (ConnectionHeader) event.getData();
+		IoTDevice ioTDevice = (IoTDevice) CloudSim.getEntity(info.ioTId);
+		double processingAbility = ioTDevice.getProcessingAbility();
+		double queueExecutionDuration = ioTDevice.getTaskQueue().stream().reduce(0,Integer::sum);
+		return queueExecutionDuration + ioTDevice.getComplexityOfDataPackage()/processingAbility;
 	}
 
 	private boolean delaySatisfyConstraint(double constrant, SimEvent event, EdgeDevice device){
-		return Stream.of(calculateDelayByLocalComputing(event,device),calculateDelayByCloudComputingOverNetwork(event,device),calculateDelayByV2RCommunications(event,device))
+		return Stream.of(calculateDelayByV2RCommunications(event,device),calculateDelayByCloudComputingOverNetwork(event,device), calculateDelayByLocalComputing(event,device))
 				.anyMatch(delay->delay<constrant);
 	}
 

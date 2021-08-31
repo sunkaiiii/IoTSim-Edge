@@ -143,7 +143,13 @@ public class CarSensor extends IoTDevice {
 
 	@Override
 	public EdgeLet processData(EdgeLet generated_data) {
-
+		double time = generated_data.getSubmissionTime();
+		double finishTime = generated_data.getFinishTime();
+		double duration = finishTime- time;
+		while(duration > 0 && !getTaskQueue().isEmpty()){
+			double handleTime = getTaskQueue().pop()/getProcessingAbility();
+			duration -= handleTime;
+		}
 		return generated_data;
 	}
 
