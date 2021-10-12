@@ -200,20 +200,24 @@ public class Example3 {
         }
 
 
-        edgeLet = list.get(list.size() - 1);
-        edgeLet.getUtilizationModelRam().getUtilization(0);
+        if(list.size()>0){
+            edgeLet = list.get(list.size() - 1);
+            edgeLet.getUtilizationModelRam().getUtilization(0);
+            //LogUtil.info(edgeLet = list.get());
+            System.out.println("HostList" + datacenters.get(0).getHostList().size());
 
-        //LogUtil.info(edgeLet = list.get());
-        System.out.println("HostList" + datacenters.get(0).getHostList().size());
-
-        EdgeDevice e = (EdgeDevice) datacenters.get(0).getHostList().get(0);
-        LogUtil.info(" EdgeDevice Consumed energy, " + " Time" + edgeLet.getFinishTime());
-        //LogUtil.info(edgeLet = list.get());
-        if (datacenters.get(0).getHostList().size() > 1) {
-            e = (EdgeDevice) datacenters.get(0).getHostList().get(1);
+            EdgeDevice e = (EdgeDevice) datacenters.get(0).getHostList().get(0);
             LogUtil.info(" EdgeDevice Consumed energy, " + " Time" + edgeLet.getFinishTime());
+            //LogUtil.info(edgeLet = list.get());
+            if (datacenters.get(0).getHostList().size() > 1) {
+                e = (EdgeDevice) datacenters.get(0).getHostList().get(1);
+                LogUtil.info(" EdgeDevice Consumed energy, " + " Time" + edgeLet.getFinishTime());
 
+            }
         }
+
+
+
 
 
         LogUtil.info("end-exp");

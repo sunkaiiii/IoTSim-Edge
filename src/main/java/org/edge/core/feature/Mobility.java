@@ -50,7 +50,14 @@ public class Mobility {
 
 		}
 
-
+		@Override
+		public String toString() {
+			return "Location{" +
+					"x=" + x +
+					", y=" + y +
+					", z=" + z +
+					'}';
+		}
 	}
 
 

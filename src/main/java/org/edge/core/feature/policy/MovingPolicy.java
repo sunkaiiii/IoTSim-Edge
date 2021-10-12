@@ -5,6 +5,6 @@ import org.edge.core.feature.Mobility;
 public interface MovingPolicy {
 
 
-	public void updateLocation(Mobility mobility);
+	void updateLocation(Mobility mobility);
 
 }

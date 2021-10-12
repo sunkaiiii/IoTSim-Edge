@@ -90,34 +90,49 @@ public class EdgeDataCenter extends Datacenter {
 	}
 
 	private double calculateDelayByV2RCommunications(SimEvent event, EdgeDevice device){
+		if(device.getId()==100){
+			return Integer.MAX_VALUE;
+		}
 		double queueExecutionDuration = device.getPendingResponse().stream().map(EdgeLet::getFinishTime).reduce(0.0, Double::sum);
 		ConnectionHeader info = (ConnectionHeader) event.getData();
 		IoTDevice ioTDevice = (IoTDevice) CloudSim.getEntity(info.ioTId);
 		double complexity = ioTDevice.getComplexityOfDataPackage();
 		double transmissionDelay = ioTDevice.getNetworkDelay();
-//		device.getc
 		return queueExecutionDuration+transmissionDelay + complexity/this.getEdgeCharacteristics().getCpuTime(complexity,0);
 	}
 
 	private double calculateDelayByCloudComputingOverNetwork(SimEvent event,EdgeDevice device){
-		return Integer.MAX_VALUE;
+		if(device.getId()!=100){
+			return Integer.MAX_VALUE;
+		}
+		double queueExecutionDuration = device.getPendingResponse().stream().map(EdgeLet::getFinishTime).reduce(0.0, Double::sum);
+		ConnectionHeader info = (ConnectionHeader) event.getData();
+		IoTDevice ioTDevice = (IoTDevice) CloudSim.getEntity(info.ioTId);
+		double complexity = ioTDevice.getComplexityOfDataPackage();
+		double transmissionDelay = ioTDevice.getNetworkDelay();
+		return queueExecutionDuration+transmissionDelay + complexity/this.getEdgeCharacteristics().getCpuTime(complexity,0);
 	}
 
 	private double calculateDelayByLocalComputing(SimEvent event, EdgeDevice device){
+		if(device.getId()==100){
+			return Integer.MAX_VALUE;
+		}
 		ConnectionHeader info = (ConnectionHeader) event.getData();
 		IoTDevice ioTDevice = (IoTDevice) CloudSim.getEntity(info.ioTId);
 		double processingAbility = ioTDevice.getProcessingAbility();
 		double queueExecutionDuration = ioTDevice.getTaskQueue().stream().reduce(0,Integer::sum);
-		return queueExecutionDuration + ioTDevice.getComplexityOfDataPackage()/processingAbility;
+		double overAllLatency = queueExecutionDuration + ioTDevice.getComplexityOfDataPackage()/processingAbility;
+		System.out.println("cloud computing" + overAllLatency);
+		return overAllLatency;
 	}
 
-	private boolean delaySatisfyConstraint(double constrant, SimEvent event, EdgeDevice device){
+	private boolean delaySatisfyConstraint(double constraint, SimEvent event, EdgeDevice device){
 		return Stream.of(calculateDelayByV2RCommunications(event,device),calculateDelayByCloudComputingOverNetwork(event,device), calculateDelayByLocalComputing(event,device))
-				.anyMatch(delay->delay<constrant);
+				.anyMatch(delay->delay<constraint);
 	}
 
-	private List<EdgeDevice> getEdgeDevicesInConstraints(SimEvent event,List<EdgeDevice> devices){
-		return devices.stream().filter(device -> delaySatisfyConstraint(200,event,device)).collect(Collectors.toList());
+	private EdgeDevice getEdgeDevicesInConstraints(SimEvent event,List<EdgeDevice> devices){
+		return devices.stream().filter(device -> delaySatisfyConstraint(100000,event,device)).findAny().orElse(null);
 	}
 
 	/**
@@ -130,7 +145,6 @@ public class EdgeDataCenter extends Datacenter {
 		Class<? extends CommunicationProtocol>[] supported_comm_protocols_for_IoT = this.getEdgeCharacteristics()
 				.getCommunicationProtocolSupported();
 		Class<? extends IoTDevice>[] ioTDeviceSupported_for_IoT = this.getEdgeCharacteristics().getIoTDeviceSupported();
-
 		boolean supportDevice = false;
 		for (Class ioT : ioTDeviceSupported_for_IoT) {
 			// if this edge device supports this ioTdevice
@@ -143,27 +157,25 @@ public class EdgeDataCenter extends Datacenter {
 							/* || clzz.isAssignableFrom(device.getClass()) */) {
 						List<EdgeDevice> hostList = this.characteristics.getHostList();
 
-						List<EdgeDevice> availableDevice = getEdgeDevicesInConstraints(ev,hostList);
-
-						for (EdgeDevice edgeDevice : hostList) {
-							List<Vm> vmList = edgeDevice.getVmList();
-							for (Vm vm : vmList) {
-								if (vm.getId() == info.vmId) {
-									boolean connect_IoT_device = edgeDevice.connect_IoT_device(info);
-									if (connect_IoT_device) {
-										info.state = EdgeState.SUCCESS;
-										// connection infor is from vm part
-										info.sourceId = info.vmId;
-										this.send(info.brokeId, this.getNeworkDelay(new DevicesInfo(info.ioTId, info.vmId)),
-												EdgeState.CONNECTING_ACK, info);
-									}
-									return;
+						final EdgeDevice availableDevice = getEdgeDevicesInConstraints(ev,hostList);
+						if(availableDevice == null){
+							continue;
+						}
+						List<Vm> vmList = availableDevice.getVmList();
+						for (Vm vm : vmList) {
+							if (vm.getId() == info.vmId) {
+								boolean connect_IoT_device = availableDevice.connect_IoT_device(info);
+								if (connect_IoT_device) {
+									info.state = EdgeState.SUCCESS;
+									// connection infor is from vm part
+									info.sourceId = info.vmId;
+									this.send(info.brokeId, this.getNeworkDelay(new DevicesInfo(info.ioTId, info.vmId)),
+											EdgeState.CONNECTING_ACK, info);
 								}
+								return;
 							}
-
 						}
 						return;
-
 					}
 				}
 

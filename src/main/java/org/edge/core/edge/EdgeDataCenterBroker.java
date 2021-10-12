@@ -575,6 +575,7 @@ public class EdgeDataCenterBroker extends DatacenterBroker {
 	@SuppressWarnings("unused")
 	private EdgeDevice findAvailiableDevice(ConnectionHeader connectionInfo) {
 		Integer integer = this.getVmsToDatacentersMap().get(connectionInfo.vmId);
+		//TODO Why get null
 		if (integer == null) {
 			if (edgeDatacenter == null)
 				return null;
@@ -595,6 +596,7 @@ public class EdgeDataCenterBroker extends DatacenterBroker {
 					Location iotLocation = iot.getMobility().location;
 					double range = device.getLocation().signalRange;
 					double distance = Math.abs(iotLocation.x - edgeLocation.x);
+					System.out.println("iot location"+" "+iotLocation.x+" "+iotLocation.y);
 					if (range >= distance && device.isEnabled()) {
 						LogUtil.info("got the required device!");
 						return device;

@@ -169,6 +169,10 @@ public abstract class IoTDevice extends SimEntity {
 		this.enabled = true;
 		this.capacityToStore = 0;
 		this.taskQueue = new ArrayDeque<Integer>();
+//		this.movingPolicy = mobility -> {
+//			System.out.println(this.getId() + " update location, current location is"+this.mobility.location.toString() + " ,the volecity:"+this.mobility.volecity);
+//			mobility.location.x += this.mobility.volecity;
+//		};
 
 	}
 
@@ -380,6 +384,7 @@ public abstract class IoTDevice extends SimEntity {
 			//this.getMobility().location.x=this.getMobility().location.x+this.getMobility().volecity;
 			LogUtil.info(this.getClass().getSimpleName()+" " + this.getId() +" Location is:"+this.getMobility().location.x);
 			this.movingPolicy.updateLocation(this.mobility);
+			LogUtil.info(this.getClass().getSimpleName()+" " + this.getId() +" Location is:"+this.getMobility().location.x);
 		}
 	}
 

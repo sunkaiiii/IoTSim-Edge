@@ -10,12 +10,12 @@
 					"y": 0.0,
 					"z": 0.0
 				},
-			"volecity": 5,
+			"volecity": 40,
 			"range":{	
 				"beginX": 0.00,
-				"endX":300.00
+				"endX":1500.00
 				},
-			"signalRange":25
+			"signalRange":80
 			},
 			"assignmentId": 1,
 			"ioTClassName": "org.edge.core.iot.CarSensor",
@@ -28,70 +28,8 @@
 				"networkType": "wifi",
 				"communicationProtocol": "xmpp"
 			},
-			"max_battery_capacity": 70.0,
-			"battery_drainage_rate": 1.0,
-			"processingAbility": 1.0,
-			"numberofEntity": 100
-		},
-		{
-			"mobilityEntity": {
-				"movable": true,
-				"location": {
-					"x": 100.0,
-					"y": 0.0,
-					"z": 0.0
-				},
-				"volecity": 3,
-				"range":{
-					"beginX": 100.00,
-					"endX":300.00
-				},
-				"signalRange":25
-			},
-			"assignmentId": 1,
-			"ioTClassName": "org.edge.core.iot.CarSensor",
-			"iotType": "car",
-			"name": "car",
-			"data_frequency": 1.0,
-			"dataGenerationTime": 4.0,
-			"complexityOfDataPackage": 10,
-			"networkModelEntity": {
-				"networkType": "wifi",
-				"communicationProtocol": "xmpp"
-			},
-			"max_battery_capacity": 70.0,
-			"battery_drainage_rate": 1.0,
-			"processingAbility": 1.0,
-			"numberofEntity": 100
-		},
-		{
-			"mobilityEntity": {
-				"movable": true,
-				"location": {
-					"x": 20.0,
-					"y": 0.0,
-					"z": 0.0
-				},
-				"volecity": 25,
-				"range":{
-					"beginX": 20.00,
-					"endX":500.00
-				},
-				"signalRange":25
-			},
-			"assignmentId": 1,
-			"ioTClassName": "org.edge.core.iot.CarSensor",
-			"iotType": "car",
-			"name": "car",
-			"data_frequency": 1.0,
-			"dataGenerationTime": 4.0,
-			"complexityOfDataPackage": 10,
-			"networkModelEntity": {
-				"networkType": "wifi",
-				"communicationProtocol": "xmpp"
-			},
-			"max_battery_capacity": 70.0,
-			"battery_drainage_rate": 1.0,
+			"max_battery_capacity": 100.0,
+			"battery_drainage_rate": 0.0,
 			"processingAbility": 1.0,
 			"numberofEntity": 100
 		},
@@ -103,10 +41,41 @@
 					"y": 0.0,
 					"z": 0.0
 				},
-				"volecity": 2,
+				"volecity": 40,
 				"range":{
-					"beginX": 0.00,
-					"endX":150.00
+					"beginX": 300.00,
+					"endX":1200.00
+				},
+				"signalRange":80
+			},
+			"assignmentId": 1,
+			"ioTClassName": "org.edge.core.iot.CarSensor",
+			"iotType": "car",
+			"name": "car",
+			"data_frequency": 1.0,
+			"dataGenerationTime": 4.0,
+			"complexityOfDataPackage": 10,
+			"networkModelEntity": {
+				"networkType": "wifi",
+				"communicationProtocol": "xmpp"
+			},
+			"max_battery_capacity": 100.0,
+			"battery_drainage_rate": 0.0,
+			"processingAbility": 1.0,
+			"numberofEntity": 100
+		},
+		{
+			"mobilityEntity": {
+				"movable": true,
+				"location": {
+					"x": 0.0,
+					"y": 0.0,
+					"z": 0.0
+				},
+				"volecity": 40,
+				"range":{
+					"beginX": 600.00,
+					"endX":1800.00
 				},
 				"signalRange":25
 			},
@@ -121,8 +90,39 @@
 				"networkType": "wifi",
 				"communicationProtocol": "xmpp"
 			},
-			"max_battery_capacity": 70.0,
-			"battery_drainage_rate": 1.0,
+			"max_battery_capacity": 100.0,
+			"battery_drainage_rate": 0.0,
+			"processingAbility": 1.0,
+			"numberofEntity": 100
+		},
+		{
+			"mobilityEntity": {
+				"movable": true,
+				"location": {
+					"x": 0.0,
+					"y": 0.0,
+					"z": 0.0
+				},
+				"volecity": 35,
+				"range":{
+					"beginX": 1000.00,
+					"endX":1700.00
+				},
+				"signalRange":80
+			},
+			"assignmentId": 1,
+			"ioTClassName": "org.edge.core.iot.CarSensor",
+			"iotType": "car",
+			"name": "car",
+			"data_frequency": 1.0,
+			"dataGenerationTime": 4.0,
+			"complexityOfDataPackage": 10,
+			"networkModelEntity": {
+				"networkType": "wifi",
+				"communicationProtocol": "xmpp"
+			},
+			"max_battery_capacity": 100.0,
+			"battery_drainage_rate": 0.0,
 			"processingAbility": 1.0,
 			"numberofEntity": 100
 		},
@@ -137,9 +137,9 @@
 				"volecity": 35,
 				"range":{
 					"beginX": 0.00,
-					"endX":300.00
+					"endX":600.00
 				},
-				"signalRange":25
+				"signalRange":60
 			},
 			"assignmentId": 1,
 			"ioTClassName": "org.edge.core.iot.CarSensor",
@@ -152,8 +152,8 @@
 				"networkType": "wifi",
 				"communicationProtocol": "xmpp"
 			},
-			"max_battery_capacity": 70.0,
-			"battery_drainage_rate": 1.0,
+			"max_battery_capacity": 100.0,
+			"battery_drainage_rate": 0.0,
 			"processingAbility": 1.0,
 			"numberofEntity": 100
 		},
@@ -183,8 +183,8 @@
 				"networkType": "wifi",
 				"communicationProtocol": "xmpp"
 			},
-			"max_battery_capacity": 70.0,
-			"battery_drainage_rate": 1.0,
+			"max_battery_capacity": 100.0,
+			"battery_drainage_rate": 0.0,
 			"processingAbility": 1.0,
 			"numberofEntity": 100
 		},
@@ -196,12 +196,12 @@
 					"y": 0.0,
 					"z": 0.0
 				},
-				"volecity": 2,
+				"volecity": 20,
 				"range":{
-					"beginX": 10.00,
-					"endX":80.00
+					"beginX": 700.00,
+					"endX":1200.00
 				},
-				"signalRange":25
+				"signalRange":60
 			},
 			"assignmentId": 1,
 			"ioTClassName": "org.edge.core.iot.CarSensor",
@@ -214,8 +214,8 @@
 				"networkType": "wifi",
 				"communicationProtocol": "xmpp"
 			},
-			"max_battery_capacity": 70.0,
-			"battery_drainage_rate": 1.0,
+			"max_battery_capacity": 100.0,
+			"battery_drainage_rate": 0.0,
 			"processingAbility": 1.0,
 			"numberofEntity": 100
 		},
@@ -227,12 +227,12 @@
 					"y": 0.0,
 					"z": 0.0
 				},
-				"volecity": 2,
+				"volecity": 20,
 				"range":{
-					"beginX": 200.00,
-					"endX":300.00
+					"beginX": 400.00,
+					"endX":900.00
 				},
-				"signalRange":25
+				"signalRange":80
 			},
 			"assignmentId": 1,
 			"ioTClassName": "org.edge.core.iot.CarSensor",
@@ -245,8 +245,8 @@
 				"networkType": "wifi",
 				"communicationProtocol": "xmpp"
 			},
-			"max_battery_capacity": 70.0,
-			"battery_drainage_rate": 1.0,
+			"max_battery_capacity": 100.0,
+			"battery_drainage_rate": 0.0,
 			"processingAbility": 1.0,
 			"numberofEntity": 100
 		}
@@ -326,7 +326,7 @@
 						"geo_location": {
 							"movable": false,
 							"volecity": 0.0,
-							"signalRange": 75.0,
+							"signalRange": 300.0,
 							"location": {
 								"x": 0.0,
 								"y": 0.0,
@@ -367,9 +367,9 @@
 						"geo_location": {
 							"movable": false,
 							"volecity": 0.0,
-							"signalRange": 75.0,
+							"signalRange": 300.0,
 							"location": {
-								"x": 50.0,
+								"x": 300.0,
 								"y": 0.0,
 								"z": 0.0
 							}
@@ -380,7 +380,7 @@
 						},
 						"max_IoTDevice_capacity": 10000,
 						"max_battery_capacity": 200000.0,
-						"battery_drainage_rate": 1.0,
+						"battery_drainage_rate": 0.0,
 						"current_battery_capacity": 200000.0
 					},
 					{
@@ -408,9 +408,9 @@
 						"geo_location": {
 							"movable": false,
 							"volecity": 0.0,
-							"signalRange": 75.0,
+							"signalRange": 300.0,
 							"location": {
-								"x": 100.0,
+								"x": 500.0,
 								"y": 0.0,
 								"z": 0.0
 							}
@@ -421,7 +421,7 @@
 						},
 						"max_IoTDevice_capacity": 10000,
 						"max_battery_capacity": 200000.0,
-						"battery_drainage_rate": 1.0,
+						"battery_drainage_rate": 0.0,
 						"current_battery_capacity": 200000.0
 					},
 					{
@@ -449,9 +449,9 @@
 						"geo_location": {
 							"movable": false,
 							"volecity": 0.0,
-							"signalRange": 75.0,
+							"signalRange": 400.0,
 							"location": {
-								"x": 150.0,
+								"x": 700.0,
 								"y": 0.0,
 								"z": 0.0
 							}
@@ -462,7 +462,7 @@
 						},
 						"max_IoTDevice_capacity": 10000,
 						"max_battery_capacity": 200000.0,
-						"battery_drainage_rate": 1.0,
+						"battery_drainage_rate": 0.0,
 						"current_battery_capacity": 200000.0
 					},
 					{
@@ -490,9 +490,9 @@
 						"geo_location": {
 							"movable": false,
 							"volecity": 0.0,
-							"signalRange": 75.0,
+							"signalRange": 500.0,
 							"location": {
-								"x": 200.0,
+								"x": 1100.0,
 								"y": 0.0,
 								"z": 0.0
 							}
@@ -503,8 +503,49 @@
 						},
 						"max_IoTDevice_capacity": 10000,
 						"max_battery_capacity": 200000.0,
-						"battery_drainage_rate": 1.0,
+						"battery_drainage_rate": 0.0,
 						"current_battery_capacity": 200000.0
+					},
+					{
+						"id": 100,
+						"ramProvisioner": {
+							"className": "org.cloudbus.cloudsim.provisioners.RamProvisionerSimple",
+							"ramSize": 10000
+						},
+						"bwProvisioner": {
+							"className": "org.cloudbus.cloudsim.provisioners.BwProvisionerSimple",
+							"bwSize": 10000
+						},
+						"storage": 10000,
+						"peEntities": [
+							{
+								"id": 1,
+								"peProvisionerClassName": "org.cloudbus.cloudsim.provisioners.PeProvisionerSimple",
+								"mips": 10000
+							}
+						],
+						"vmScheduler": {
+							"className": "org.cloudbus.cloudsim.VmSchedulerTimeShared"
+						},
+						"edgeType": "RASPBERRY_PI",
+						"geo_location": {
+							"movable": false,
+							"volecity": 0.0,
+							"signalRange": 750000.0,
+							"location": {
+								"x": 0.0,
+								"y": 600.0,
+								"z": 0.0
+							}
+						},
+						"networkModel": {
+							"networkType": "4g",
+							"communicationProtocol": "xmpp"
+						},
+						"max_IoTDevice_capacity": 10000,
+						"max_battery_capacity": 2000000.0,
+						"battery_drainage_rate": 1,
+						"current_battery_capacity": 2000000.0
 					}
 
 				],
@@ -528,6 +569,7 @@
 			},
 			"schedulingInterval": 1.0
 		}
+
 	],
 	"connections": [
 		{
